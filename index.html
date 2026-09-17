@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acceso a Tarjeta</title>
+    <style>
+        body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background: #f0f2f5; }
+        .box { text-align: center; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); width: 85%; max-width: 320px; }
+        input { width: 90%; padding: 12px; font-size: 18px; border: 2px solid #ccc; border-radius: 6px; text-align: center; margin-bottom: 15px; }
+        button { width: 100%; padding: 12px; font-size: 16px; background: #007bff; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; }
+        .err { color: red; margin-top: 10px; font-size: 14px; display: none; }
+    </style>
+</head>
+<body>
+<div class="box">
+    <h2>Ingresa el número</h2>
+    <input type="number" id="num" placeholder="Ej. 14">
+    <button onclick="ir()">Ir al negocio</button>
+    <div id="err" class="err">Tarjeta no registrada aún.</div>
+</div>
+<script>
+    // BASE DE DATOS DE CLIENTES
+    const db = {
+        "1": "https://google.com",
+        "14": "https://menu-digital-ejemplo.com"
+    };
+
+    function ir() {
+        const n = document.getElementById("num").value.trim();
+        if (n && db[n]) {
+            window.location.href = db[n];
+        } else {
+            document.getElementById("err").style.display = "block";
+        }
+    }
+</script>
+</body>
+</html>
