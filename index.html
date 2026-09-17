@@ -3,37 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Acceso a Tarjeta</title>
+    <title>Redireccionando...</title>
     <style>
-        body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background: #f0f2f5; }
-        .box { text-align: center; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); width: 85%; max-width: 320px; }
-        input { width: 90%; padding: 12px; font-size: 18px; border: 2px solid #ccc; border-radius: 6px; text-align: center; margin-bottom: 15px; }
-        button { width: 100%; padding: 12px; font-size: 16px; background: #007bff; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; }
-        .err { color: red; margin-top: 10px; font-size: 14px; display: none; }
+        body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background: #ffffff; }
+        .loader { border: 4px solid #f3f3f3; border-top: 4px solid #007bff; border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
-<div class="box">
-    <h2>Ingresa el número</h2>
-    <input type="number" id="num" placeholder="Ej. 14">
-    <button onclick="ir()">Ir al negocio</button>
-    <div id="err" class="err">Tarjeta no registrada aún.</div>
-</div>
+
+    <!-- Animación de carga rápida mientras se procesa la redirección -->
+    <div class="loader"></div>
+
 <script>
-    // BASE DE DATOS DE CLIENTES
+    // 1. OBTENER EL NÚMERO DIRECTAMENTE DE LA URL (ej: ?id=14)
+    const urlParams = new URLSearchParams(window.location.search);
+    const idCliente = urlParams.get('id');
+
+    // 2. BASE DE DATOS DE TUS CLIENTES
     const db = {
-        "1": "https://google.com",
-        "14": "https://www.xvideos.com/"
+        "1": "https://instagram.com",
+        "14": "https://menu-digital-cliente14.com",
+        "15": "https://facebook.com"
     };
 
-    function ir() {
-        const n = document.getElementById("num").value.trim();
-        if (n && db[n]) {
-            window.location.href = db[n];
-        } else {
-            document.getElementById("err").style.display = "block";
-        }
+    // 3. REDIRECCIÓN AUTOMÁTICA
+    if (idCliente && db[idCliente]) {
+        window.location.href = db[idCliente];
+    } else {
+        // Si escanean el QR sin número o el ID no existe, muestra un mensaje amigable
+        document.body.innerHTML = "<div style='text-align:center;'><h2>Tarjeta no configurada o inválida.</h2><p>Por favor, contacta al administrador.</p></div>";
     }
 </script>
 </body>
 </html>
+
